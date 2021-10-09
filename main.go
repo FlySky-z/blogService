@@ -1,14 +1,24 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"blogServer/internal/routers"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
+	"net/http"
+	"time"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "pong"})
-	})
-	r.Run()
+	router := routers.NewRouter()
+	s := &http.Server{
+		Addr:           ":8080",
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	err := s.ListenAndServe()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
