@@ -73,6 +73,10 @@ func setupLogger() error {
 	return nil
 }
 
+// @title 博客系统
+// @version 1.0
+// @description ZSX Learning Proj
+// @termsOfService https://github.com/FlySky-z
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()
